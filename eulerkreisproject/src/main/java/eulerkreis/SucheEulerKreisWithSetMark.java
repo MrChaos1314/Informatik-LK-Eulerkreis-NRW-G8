@@ -8,10 +8,17 @@ public class SucheEulerKreisWithSetMark {
         m.run();
     }
 
+    List<Vertex> allVerticesWithNeighbour = new List<Vertex>();
+    Vertex currentV;
+
     public void run() {
         Graph g = generateGraph();
         Graph uG = generateUnconnectedGraph();
         System.out.println(isGraphConnected(uG));
+        List<Vertex> allVeritces = g.getVertices();
+        allVeritces.toFirst();
+        currentV = allVeritces.getContent();
+        System.out.println(isGraphConnectedRec(g, currentV, allVerticesWithNeighbour));
         System.out.println(readPath(searchCircle(g)));
     }
 
@@ -283,4 +290,33 @@ public class SucheEulerKreisWithSetMark {
         }
         return read;
     }
+
+
+    /*------------------------------------------------------
+    *   Zusammenhängender Graph Rekursiv
+    *-----------------------------------------------------*/
+
+    
+
+    public boolean isGraphConnectedRec(Graph g, Vertex v, List<Vertex> vList){
+        currentV = v; 
+        allVerticesWithNeighbour = vList;
+        allVerticesWithNeighbour.append(currentV);
+        currentV.setMark(true);
+        List<Vertex> currentVNeighbours = g.getNeighbours(currentV);
+        currentVNeighbours.toFirst();
+        while (currentVNeighbours.hasAccess()) {
+            if(!currentVNeighbours.getContent().isMarked()){
+                isGraphConnectedRec(g, currentVNeighbours.getContent(), allVerticesWithNeighbour);
+            }
+            currentVNeighbours.next();
+        }
+        if(g.allVerticesMarked()){ // false: Nicht zusammenhängend - true: Zusammenhängend
+            return true;
+        }
+        return false;
+    }
+
+
+
 }
