@@ -15,10 +15,10 @@ public class SucheEulerKreisWithSetMark {
         Graph g = generateGraph();
         Graph uG = generateUnconnectedGraph();
         System.out.println(isGraphConnected(uG));
-        List<Vertex> allVeritces = g.getVertices();
+        List<Vertex> allVeritces = g.getVertices(); // NAME.getVertices() NAME ändern je nach Graph 
         allVeritces.toFirst();
         currentV = allVeritces.getContent();
-        System.out.println(isGraphConnectedRec(g, currentV, allVerticesWithNeighbour));
+        System.out.println(isGraphConnectedRec(g, currentV, allVerticesWithNeighbour)); // isGraphConnectedRec(NAME, currentV, allVerticesWithNeighbour) NAME ändern je nach Graph
         System.out.println(readPath(searchCircle(g)));
     }
 
@@ -316,7 +316,4 @@ public class SucheEulerKreisWithSetMark {
         }
         return false;
     }
-
-
-
 }
